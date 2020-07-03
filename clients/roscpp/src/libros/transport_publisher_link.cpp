@@ -114,7 +114,8 @@ bool TransportPublisherLink::initialize(const ConnectionPtr& connection)
 void TransportPublisherLink::drop()
 {
   dropping_ = true;
-  connection_->drop(Connection::Destructing);
+  auto tmp = connection_;
+  tmp->drop(Connection::Destructing);
 
   if (SubscriptionPtr parent = parent_.lock())
   {
